@@ -3,7 +3,7 @@
     <string name="today">Today</string>
     <string name="tomorrow">Tomorrow</string>
     <string name="week">This week</string>
-    <string name="future">This month</string>
+    <string name="future">In future</string>
 
     <string name="name">Name</string>
     <string name="date">Date</string>
@@ -12,6 +12,20 @@
     <string name="save">Save</string>
     <string name="cancel">Cancel</string>
     <string name="notification">Notification</string>
+
+    <string name="empty_field">Fields can\'t be empty</string>
+
+    <string name="add_subtask">Add subtask</string>
+
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+    <string name="nameView">Name: \</string>
+    <string name="dateView">Date: \</string>
+    <string name="finishedView">Finished: \</string>
+    <string name="daysLeftView">Days left: \</string>
+    <string name="priorityView">Priority: \</string>
+
+
     <string-array name="priorities">
         <item>High</item>
         <item>Normal</item>
