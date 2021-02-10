@@ -15,18 +15,35 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import edu.ib.taskapp.AddTaskActivity;
+import edu.ib.taskapp.MainActivity;
 import edu.ib.taskapp.R;
 import edu.ib.taskapp.TaskActivity;
 import edu.ib.taskapp.task.Task;
 import edu.ib.taskapp.TasksList;
 
+/**
+ * Class used by recycle view to show TaskList
+ */
 public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder> {
+    /**
+     * List of tasks to show
+     */
     private TasksList taskList;
 
+    /**
+     * Constructor
+     * @param taskList List of task to show
+     */
     public TaskAdapter(TasksList taskList){
         this.taskList=taskList;
     }
 
+    /**
+     * Method run on creating new ViewHolder
+     * @param parent
+     * @param viewType
+     * @return ViewHolder
+     */
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -37,6 +54,11 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder> {
         return new ViewHolder(view);
     }
 
+    /**
+     * Used when adding new task to list
+     * @param holder View of one task on list
+     * @param position Position of task on list
+     */
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Task task=taskList.get(position);
@@ -53,7 +75,7 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder> {
                 textView.setTextColor(Color.RED);
                 break;
         }
-        if(task.isAfterDate()){
+        if(task.isAfterDate() && !task.isFinished()){
             textView.setTextColor(Color.rgb(184,3,255));
         }
 
@@ -84,6 +106,7 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder> {
             Context context=view.getContext();
             Intent intent=new Intent(context,TaskActivity.class);
             intent.putExtra(TaskActivity.EXTRA_TASK,task);
+            intent.putExtra(TaskActivity.EXTRA_LIST,((MainActivity) context).getTaskList());
             context.startActivity(intent);
         });
         textView.setOnLongClickListener((View.OnLongClickListener) view->{
@@ -97,15 +120,27 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder> {
 
     }
 
+    /**
+     * Method returning number of tasks in list
+     * @return Number of tasks
+     */
     @Override
     public int getItemCount() {
         return taskList.size();
     }
 
+    /**
+     * Class with View of one item from list
+     */
     public class ViewHolder extends RecyclerView.ViewHolder{
         CheckBox done;
         TextView text;
         ImageButton deleteButton;
+
+        /**
+         * ViewHolder constructor
+         * @param itemView View
+         */
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             done=(CheckBox) itemView.findViewById(R.id.cb_done_task);

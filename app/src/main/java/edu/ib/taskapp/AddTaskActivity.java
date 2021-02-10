@@ -29,23 +29,50 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
 
+import edu.ib.taskapp.task.Subtask;
 import edu.ib.taskapp.task.Task;
 
+/**
+ * Activity used to create new task or edit existing task
+ */
 public class AddTaskActivity extends AppCompatActivity {
-
+    /**
+     * Constant String value used to move data about Task between Activities
+     */
     public static final String EXTRA_TASK="task";
+    /**
+     * Constant String value used to move data about TaskList between Activities
+     */
     public static final String EXTRA_TASK_LIST="taskList";
+    /**
+     *Constant String value used to move data about Mode between Activities
+     */
     public static final String EXTRA_MODE="mode";
-
+    /**
+     * Task to create or edit
+     */
     private Task task;
+    /**
+     * List of all tasks
+     */
     private TasksList tasksList;
+    /**
+     * Mode class object informing if we edit task or create new one
+     */
     private Mode mode;
 
+    /**
+     * Enum class with two states 'Add' and 'Edit'
+     */
     public enum Mode implements Serializable {
         Add,
         Edit
     }
 
+    /**
+     * Method loading task if mode is in 'Edit' mode or creating new one when mode is in 'Add' mode
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -82,6 +109,10 @@ public class AddTaskActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * Method saving new task or edited task to file
+     * @param view
+     */
     public void save(View view) {
         EditText name=(EditText) findViewById(R.id.etxtName);
         TextView date=(TextView) findViewById(R.id.txtDatePick);
@@ -118,13 +149,21 @@ public class AddTaskActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * Method canceling adding/editing task
+     * @param view
+     */
     public void cancel(View view) {
         Intent intent=new Intent(this, MainActivity.class);
         startActivity(intent);
     }
 
+    /**
+     * Method create new window with option to chose date by user
+     * @param view
+     */
     public void pickDate(View view) {
-        TextView datePick=(TextView) findViewById(R.id.txtDatePick);
+        TextView datePick=(TextView) view;
         DatePickerDialog.OnDateSetListener onDateSetListener= (view1, year, month, dayOfMonth) -> {
             LocalDate date=LocalDate.of(year,month+1,dayOfMonth);
             datePick.setText(date.format(DateTimeFormatter.ofPattern("dd-MM-yyyy")));
@@ -140,7 +179,21 @@ public class AddTaskActivity extends AppCompatActivity {
         dialog.show();
     }
 
+    /**
+     * Method adding subtask to task (not implemented)
+     * @param view
+     */
     public void addSubtask(View view) {
+        TextView name=(TextView) findViewById(R.id.etxtSubtaskName);
+        TextView date=(TextView) findViewById(R.id.etxtSubtaskDate);
+        if (!name.getText().toString().isEmpty() && !date.getText().toString().isEmpty() ){
+            Subtask subtask=new Subtask();
+            subtask.setName(name.getText().toString());
+            subtask.setDate(LocalDate.parse(date.getText().toString(),DateTimeFormatter.ofPattern("dd-MM-yyyy")));
+            task.addSubtask(subtask);
+            name.setText("");
+            date.setText("");
+        }
     }
 
 }

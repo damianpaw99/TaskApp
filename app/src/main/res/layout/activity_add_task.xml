@@ -56,7 +56,7 @@
 
             <EditText
                 android:id="@+id/etxtName"
-                android:layout_width="265dp"
+                android:layout_width="244dp"
                 android:layout_height="match_parent"
                 android:ems="10"
                 android:inputType="textPersonName" />
@@ -118,6 +118,53 @@
                 android:id="@+id/cbNotification"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" >
+
+            <TextView
+                android:id="@+id/textView2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/subtask"
+                android:textSize="24sp" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" >
+
+            <TextView
+                android:id="@+id/textView5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/name" />
+
+            <EditText
+                android:id="@+id/etxtSubtaskName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:inputType="textPersonName" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" >
+
+            <TextView
+                android:id="@+id/textView6"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/date" />
+
+            <TextView
+                android:id="@+id/etxtSubtaskDate"
+                android:layout_width="247dp"
+                android:layout_height="wrap_content"
+                android:onClick="pickDate" />
         </TableRow>
 
         <TableRow
